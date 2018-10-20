@@ -1,0 +1,12 @@
+{{ define "content" }}
+<div id="welcome_box">
+<h1>왕운 가챠!</h1>
+</div>
+<p class="say_hello">
+{{ if .User.Name }}
+	{{ .User.Name }} 로그인 됨.
+{{ else }}
+로그인을 하시는 게 어떤가요?
+{{ end }}</p>
+<a class="go_to_login" href="/login">로그인 하기</a>
+{{ end }}

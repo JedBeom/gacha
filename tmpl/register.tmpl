@@ -1,0 +1,20 @@
+{{ define "content" }}
+
+{{ if .User }}
+	<p>{{ .User.Name }}님, 이미 로그인 되어 있습니다!</p>
+	<a href="/">메인 화면으로 돌아가기</a>
+{{ else }}
+<p>{{ .Message }}</p>
+
+<form action="/join" method="post">
+	<input type="text" name="name" placeholder="name" required>
+	<input type="text" name="student_id" placeholder="Student ID" required>
+	<input type="email" name="email" placeholder="email" required autofocus>
+	<input type="password" name="password" placeholder="password" required>
+	<button type="submit">Join</button>
+</form>
+
+<p>Already have an account? <a href="/login">Login here,</a></p>
+{{ end }}
+
+{{ end }}

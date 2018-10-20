@@ -1,0 +1,45 @@
+@font-face{
+	 font-family:'Daum';
+	 font-style:normal;
+	 font-weight:400;
+	 src:url('//cdn.jsdelivr.net/korean-webfonts/1/corps/daum/Daum/Daum-Regular.woff2') format('woff2'),
+		 url('//cdn.jsdelivr.net/korean-webfonts/1/corps/daum/Daum/Daum-Regular.woff') format('woff');
+}
+@font-face{
+	 font-family:'Daum';
+	 font-style:normal;
+	 font-weight:700;
+	 src:url('//cdn.jsdelivr.net/korean-webfonts/1/corps/daum/Daum/Daum-SemiBold.woff2') format('woff2'),
+		 url('//cdn.jsdelivr.net/korean-webfonts/1/corps/daum/Daum/Daum-SemiBold.woff') format('woff');
+}
+
+* {
+	font-family: Daum;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+h1 {
+	font-size: 3rem;
+	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 5px #000000;
+}
+
+#welcome_box {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	background-color: #f39c12;
+}
+
+.say_hello {
+	padding-top: 1rem;
+	text-align: center;
+	font-size: 1.9rem;
+}
+
+.go_to_login {
+	font-size: 1rem;
+	float: right;
+	padding-right: 13px;
+}
