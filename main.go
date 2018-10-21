@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/JedBeom/gacha/data"
 )
@@ -13,6 +14,8 @@ func main() {
 
 	mux.HandleFunc("/auth", authHandler)
 	mux.HandleFunc("/login", loginHandler)
+	mux.HandleFunc("/logout", logout)
+
 	mux.HandleFunc("/register", register)
 	mux.HandleFunc("/join", join)
 	mux.HandleFunc("/", index)
@@ -62,6 +65,10 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	var tdata TemplateData
 	tdata.Message = message
+	user, _, err := sessionAndUser(w, r)
+	if err == nil {
+		tdata.User = user
+	}
 	generateHTML(w, tdata, "layout", "login")
 }
 
@@ -97,8 +104,25 @@ func join(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func logout(w http.ResponseWriter, r *http.Request) {
+	_, sess, err := sessionAndUser(w, r)
+	if err == nil {
+		cookie, err := r.Cookie("_yayoiori")
+		if err != nil {
+			return
+		}
+		sess.Remove()
+		cookie.Expires = time.Unix(0, 0)
+		http.SetCookie(w, cookie)
+	}
+
+	http.Redirect(w, r, "/", 302)
+
+	return
+}
+
 func index(w http.ResponseWriter, r *http.Request) {
-	user, err := sessionAndGetUser(w, r)
+	user, _, err := sessionAndUser(w, r)
 	var tdata TemplateData
 	if err == nil {
 		tdata.User = user

@@ -1,13 +1,13 @@
 {{ define "content" }}
 
-{{ if .User }}
+{{ if .User.Name }}
 <p>{{.User.Name }}님, 이미 로그인되어 있습니다.</p>
 <a href="/">메인화면으로 돌아가기</a>
 {{ else }}
 <p>{{ .Message }}</p>
-<form role="form" action="/auth" method="post">
-	<input type="email" name="email" required autofocus>
-	<input type="password" name="password" required>
+<form role="form" action="/auth" method="post" autocomplete="off">
+	<input type="email" name="email" placeholder="myname@domain.com" required autofocus>
+	<input type="password" name="password" placeholder="*******" minlength="8" required>
 	<button type="submit">Sign in</button>
 </form>
 

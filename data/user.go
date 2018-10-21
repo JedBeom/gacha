@@ -55,8 +55,8 @@ func UserByEmail(email string) (user User, err error) {
 	db := db()
 	defer db.Close()
 
-	statement := "select id, uuid, name, coin, email, password, created_at FROM users WHERE email = $1"
-	err = db.QueryRow(statement, email).Scan(&user.Id, &user.Uuid, &user.Name, &user.Coin, &user.Email, &user.Password, &user.CreatedAt)
+	statement := "select id, uuid, name, coin, is_admin, email, password, created_at FROM users WHERE email = $1"
+	err = db.QueryRow(statement, email).Scan(&user.Id, &user.Uuid, &user.Name, &user.Coin, &user.IsAdmin, &user.Email, &user.Password, &user.CreatedAt)
 	return
 }
 
@@ -79,6 +79,16 @@ func (session *Session) Check() (ok bool, err error) {
 	return
 }
 
+func (sess *Session) Remove() {
+	db := db()
+	defer db.Close()
+
+	statement := "delete from sessions where uuid = $1"
+	db.QueryRow(statement, sess.Uuid)
+
+	return
+}
+
 func (user *User) CreateSession() (session Session, err error) {
 	db := db()
 	defer db.Close()
@@ -92,4 +102,27 @@ func (user *User) CreateSession() (session Session, err error) {
 
 	err = stmt.QueryRow(createUUID(), user.Email, user.Id, time.Now()).Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &user.CreatedAt)
 	return
+}
+
+func (user *User) SetAdmin() (err error) {
+	db := db()
+	defer db.Close()
+
+	statement := "update users set is_admin = true where id = $1 returning is_admin"
+	stmt, err := db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	err = stmt.QueryRow(user.Id).Scan(&user.IsAdmin)
+
+	return
+}
+
+func ListUsers() (users []User) {
+	db := db()
+	defer db.Close()
+
+	statement := "select "
 }

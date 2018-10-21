@@ -8,7 +8,22 @@
 	<title>왕운 가챠!</title>
 </head>
 <body>
-	{{ template "content" . }}
+	<div class="navbar">
+		<ul>
+			<li><p>왕운 가챠!</p></li>
+			<li>
+		{{ if .User.Name }}
+			<a class="login_out" href="/logout">Log Out</a>
+		{{ else }}
+			<a class="login_out" href="/login">Log In</a>
+		{{ end }}
+			</li>
+		</ul>
+	</div>
+	
+	<div class="main">
+		{{ template "content" . }}
+	</div>
 </body>
 </html>
 
