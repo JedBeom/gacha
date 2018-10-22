@@ -6,8 +6,11 @@
 {{ else }}
 <p>{{ .Message }}</p>
 <form role="form" action="/auth" method="post" autocomplete="off">
+	<label>이메일
 	<input type="email" name="email" placeholder="myname@domain.com" required autofocus>
+	</label><label>비밀번호
 	<input type="password" name="password" placeholder="*******" minlength="8" required>
+	</label>
 	<button type="submit">Sign in</button>
 </form>
 

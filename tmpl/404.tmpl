@@ -1,3 +1,10 @@
+{{ define "layout" }}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>404다</title>
+<style>
 @font-face{
 	 font-family:'Daum';
 	 font-style:normal;
@@ -12,73 +19,34 @@
 	 src:url('//cdn.jsdelivr.net/korean-webfonts/1/corps/daum/Daum/Daum-SemiBold.woff2') format('woff2'),
 		 url('//cdn.jsdelivr.net/korean-webfonts/1/corps/daum/Daum/Daum-SemiBold.woff') format('woff');
 }
-
 * {
-	font-family: Daum;
-	padding: 0px 0px 0px 0px;
-	margin: 0px 0px 0px 0px;
-}
-
-body {
 	background-color: #d6d6d6;
+	font-family: Daum;
 }
-
-.navbar {
-	overflow: hidden;
-	background-color: #f39c12;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	list-style: none;
-	float: left;
-}
-
-.navbar li {
-	display: inline-block;
-}
-
-.navbar p {
-	font-size: 3rem;
+.error {
 	color: white;
-	text-shadow: 2px 2px 5px #000000;
-	display: block;
+	font-size: 10rem;
 	text-align: center;
-	left: 50%;
+	margin-top: 300px;
+	margin-bottom: 10px;
+	width: 100%;
+	font-weight: 700;
 }
-
-.navbar a {
-	color: #f2f2f2;
-	text-align: right;
+a {
+	margin-top: 0px;
 	text-decoration: none;
-}
-
-a .login_out {
-	float: right;
-}
-
-.main {
-	margin: 70px 20px 40px 20px;
-	background-color: #ededed;
-	padding: 10px 10px 10px 10px;
-}
-
-.say_hello {
 	text-align: center;
-	font-size: 1.9rem;
-}
-
-.go_to_login {
-	font-size: 1rem;
-	float: right;
-	padding-right: 13px;
-}
-
-input {
-	display: block;
-}
-
-img {
+	font-size: 1.5rem;
 	margin-left: auto;
-	margin-right: auto;
+	margin-bottom: auto;
 	display: block;
+	color: #6caa66;
 }
+</style>
+</head>
+<body>
+	<h1 class="error">404!</h1>
+	<a href="/">돌아가볼까...</a>
+</body>
+</html>
+{{ end }}

@@ -19,7 +19,7 @@ func generateHTML(w http.ResponseWriter, content interface{}, fileName ...string
 	templates.ExecuteTemplate(w, "layout", content)
 }
 
-func sessionAndUser(w http.ResponseWriter, r *http.Request) (user data.User, session data.Session, err error) {
+func sessionAndUser(r *http.Request) (session data.Session, user data.User, err error) {
 	cookie, err := r.Cookie("_yayoiori")
 	if err == nil {
 		session = data.Session{Uuid: cookie.Value}

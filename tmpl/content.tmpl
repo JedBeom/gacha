@@ -1,14 +1,23 @@
 {{ define "content" }}
 <p class="say_hello">
 {{ if .User.Name }}
+	{{/* 로그인 했을 시 */}}
 	{{ if .User.IsAdmin }}
-	{{ .User.Name }}(관리자)님, 안녕하세요!</p>
+		{{/* 관리자일 시 */}}
+		일해라 관리자 {{ .User.Name}}...
 	{{ else }}
-	{{ .User.Name }}님, 안녕하세요!</p>
+		{{ .User.Name }}님, 안녕하세요!
+	{{ end }}</p>
+
+	{{ if .User.Coin }}
+		{{/* 코인이 0일 시 */}}
+		<p>내 코인: {{ .User.Coin }}C</p>
+	{{ else }}
+		<img src="/static/yayo.jpg">
+		{{/* 귀여운 야요 >< */}}
+		읏우... 코인이 없어요...
 	{{ end }}
-	<p>내 코인: {{ .User.Coin }}C</p>
 {{ else }}
 	로그인을 하시는 게 어떤가요?</p>
-<a class="go_to_login" href="/login">로그인 하기</a>
 {{ end }}
 {{ end }}

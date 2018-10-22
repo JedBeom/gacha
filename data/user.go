@@ -120,9 +120,23 @@ func (user *User) SetAdmin() (err error) {
 	return
 }
 
-func ListUsers() (users []User) {
+func ListUsers() (users []User, err error) {
 	db := db()
 	defer db.Close()
 
-	statement := "select "
+	statement := "select id, name, student_id, email, password, is_admin, coin from users"
+	stmt, err := db.Prepare(statement)
+	defer stmt.Close()
+
+	rows, err := stmt.Query()
+	for rows.Next() {
+		var user User
+		err = rows.Scan(&user.Id, &user.Name, &user.StudentID, &user.Email, &user.Password, &user.IsAdmin, &user.Coin)
+		if err != nil {
+			return
+		}
+		users = append(users, user)
+	}
+	return
+
 }
