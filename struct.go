@@ -5,6 +5,11 @@ import (
 )
 
 type TemplateData struct {
-	User    data.User
-	Message string
+	CurrentUser data.User
+	Message     string
+}
+
+type AdminTemplate struct {
+	CurrentUser data.User
+	Users       []data.User
 }

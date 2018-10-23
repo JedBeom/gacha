@@ -1,0 +1,36 @@
+{{ define "content" }}
+
+<h1>User List</h1>
+<form role="form" action="/admin/user_list" method="get">
+	<label>Order By...
+		<input type="text" name="order_by" required autofocus>
+	</label>
+	<button type="submit">Order!</button>
+</form>
+<table id="user_list">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Student ID</th>
+			<th>Email</th>
+			<th>IsAdmin</th>
+			<th>Coin</th>
+			<th>CreatedAt</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{ range .Users }}
+		<tr>
+			<td>{{ .Id }}</td>
+			<td>{{ .Name }}</td>
+			<td>{{ .StudentID }}</td>
+			<td>{{ .Email }}</td>
+			<td>{{ .IsAdmin }}</td>
+			<td>{{ .Coin }}</td>
+			<td><time>{{ .CreatedAt }}</time></td>
+		</tr>
+		{{ end }}
+	</tbody>
+</table>
+{{ end }}

@@ -2,6 +2,7 @@ package data
 
 import (
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -32,7 +33,7 @@ func (user *User) Create() (err error) {
 	db := db()
 	defer db.Close()
 
-	if len(user.StudentID) != 5 {
+	if !studentIDVaildation(user.StudentID) {
 		err = errors.New("Invaild Student ID")
 		return
 	}
@@ -120,18 +121,20 @@ func (user *User) SetAdmin() (err error) {
 	return
 }
 
-func ListUsers() (users []User, err error) {
+func ListUsers(orderBy string) (users []User, err error) {
+	fmt.Println(orderBy)
 	db := db()
 	defer db.Close()
 
-	statement := "select id, name, student_id, email, password, is_admin, coin from users"
-	stmt, err := db.Prepare(statement)
-	defer stmt.Close()
-
-	rows, err := stmt.Query()
+	statement := "select id, name, student_id, email, password, is_admin, coin, created_at from users order by $1"
+	rows, err := db.Query(statement, orderBy)
+	defer rows.Close()
+	if err != nil {
+		return
+	}
 	for rows.Next() {
 		var user User
-		err = rows.Scan(&user.Id, &user.Name, &user.StudentID, &user.Email, &user.Password, &user.IsAdmin, &user.Coin)
+		err = rows.Scan(&user.Id, &user.Name, &user.StudentID, &user.Email, &user.Password, &user.IsAdmin, &user.Coin, &user.CreatedAt)
 		if err != nil {
 			return
 		}

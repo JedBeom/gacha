@@ -1,7 +1,10 @@
 package main
 
 import (
+	"log"
 	"net/http"
+	"os"
+	"os/signal"
 )
 
 func main() {
@@ -16,6 +19,7 @@ func main() {
 	mux.HandleFunc("/register", register)
 	mux.HandleFunc("/join", join)
 
+	mux.HandleFunc("/admin/user_list", userList)
 	mux.HandleFunc("/admin", adminPage)
 	mux.HandleFunc("/", index)
 
@@ -23,6 +27,15 @@ func main() {
 		Addr:    ":8080",
 		Handler: mux,
 	}
+
+	log.Println("オハヨ, /\\ |_ | <-> <>!")
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		<-c
+		log.Println("ダンス グッナイ☆スターズ")
+		os.Exit(1)
+	}()
 
 	server.ListenAndServe()
 }
@@ -32,10 +45,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		generateHTML(w, nil, "404")
 		return
 	}
-	_, user, err := sessionAndUser(r)
 	var tdata TemplateData
-	if err == nil {
-		tdata.User = user
-	}
+	_, tdata.CurrentUser, _ = sessionAndUser(r)
 	generateHTML(w, tdata, "layout", "content")
 }

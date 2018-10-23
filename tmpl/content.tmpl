@@ -1,17 +1,17 @@
 {{ define "content" }}
 <p class="say_hello">
-{{ if .User.Name }}
+{{ if .CurrentUser.Name }}
 	{{/* 로그인 했을 시 */}}
-	{{ if .User.IsAdmin }}
+	{{ if .CurrentUser.IsAdmin }}
 		{{/* 관리자일 시 */}}
-		일해라 관리자 {{ .User.Name}}...
+		일해라 관리자 {{ .CurrentUser.Name}}...
 	{{ else }}
-		{{ .User.Name }}님, 안녕하세요!
+		{{ .CurrentUser.Name }}님, 안녕하세요!
 	{{ end }}</p>
 
-	{{ if .User.Coin }}
+	{{ if .CurrentUser.Coin }}
 		{{/* 코인이 0일 시 */}}
-		<p>내 코인: {{ .User.Coin }}C</p>
+		<p>내 코인: {{ .CurrentUser.Coin }}C</p>
 	{{ else }}
 		<img src="/static/yayo.jpg">
 		{{/* 귀여운 야요 >< */}}

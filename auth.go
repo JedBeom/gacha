@@ -46,7 +46,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	tdata.Message = message
 	_, user, err := sessionAndUser(r)
 	if err == nil {
-		tdata.User = user
+		tdata.CurrentUser = user
 	}
 	generateHTML(w, tdata, "layout", "login")
 }

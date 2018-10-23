@@ -12,8 +12,11 @@
 		<ul>
 			<li><p><a href="/">왕운 가챠!</a></p></li>
 			<li>
-		{{ if .User.Name }}
+		{{ if .CurrentUser.Name }}
 			<a class="login_out" href="/logout">Log Out</a>
+			{{ if .CurrentUser.IsAdmin }}
+				<a href="/admin">Admin Page</a>
+			{{ end }}
 		{{ else }}
 			<a class="login_out" href="/login">Log In</a>
 		{{ end }}
